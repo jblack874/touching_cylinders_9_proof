@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "claim_id": "touching-cylinders-9-exist",
+  "repository": {
+    "commit": "recorded in git history of this commit",
+    "dirty": false
+  },
+  "command": "python3 cyl.py && python3 cert9.py && python3 kraw_arb.py && python3 check2_iv.py",
+  "environment": {
+    "software": [
+      "Python 3.13.18",
+      "python-flint 0.9.0 (arb)",
+      "mpmath 1.4.1",
+      "numpy 2.5.3",
+      "scipy 1.18.1"
+    ],
+    "hardware": "2-core Intel Xeon @ 2.30GHz, Linux"
+  },
+  "mathematics": {
+    "assertion_tested": "The square polynomial system F(x)=0 (36 tangency equations det(p_j-p_i,u_i,u_j)^2 = (r_i+r_j)^2 |u_i x u_j|^2, 8 equations |u_i|^2=1, 8 equations p_i.u_i=0; 52 unknowns, 11 coordinates fixed to exact dyadic or integer values) has a unique solution in the box of radius 2^-330 (checker 1) and 2^-150 (checker 2) around the 120-digit point in sol9.json, and at that solution all radii are positive and no two axes are parallel.",
+    "coefficient_domain": "real numbers; interval and ball arithmetic with outward rounding (arb at 600 bits, mpmath.iv at 320 bits)",
+    "conventions": "cylinder i has axis {p_i + t u_i}, radius r_i; touching = skew axes at distance r_i + r_j (interiors disjoint, boundaries meet); gauge: p_0 = 0, u_0 = (0,0,1), r_0 = 1, p_1y = 0, three further coordinates (indices 42, 43, 51 of the 63-vector) fixed at dyadic roundings",
+    "inputs": [
+      {
+        "path": "c9.txt",
+        "sha256": "e7d11eff636d05d21ae7c89487a3d38acdf06c0f05fcf11bdc9330d6fdc8b02a",
+        "description": "AlphaEvolve's numerical 9-cylinder configuration (cylinder_config_c_9, kissing_cylinders notebook)"
+      },
+      {
+        "path": "sol9.json",
+        "sha256": "6cc79dc970001a186d6fb81ff6202038a29014e094b6d88c1eb033c769736ebf",
+        "description": "Newton-refined 120-digit point and the gauge choice"
+      }
+    ],
+    "bounds": {
+      "krawczyk_contraction_checker1": "6.117e-20",
+      "krawczyk_contraction_checker2": "2.86e-13"
+    },
+    "non_claims": [
+      "No claim about 10 cylinders (open; overdetermined).",
+      "No classification of all 9-cylinder configurations.",
+      "No Lean formalization.",
+      "Equal-radius (Littlewood) case not addressed."
+    ]
+  },
+  "randomness": {
+    "used": false,
+    "generator": "",
+    "seed": null
+  },
+  "run": {
+    "started_at": "2026-11-23T22:21:08Z",
+    "runtime_seconds": 1.84,
+    "exit_status": 0
+  },
+  "outputs": [
+    {
+      "path": "results/checker1_arb.txt",
+      "sha256": "db8e21948c346c12247724ab71b27d0b18d39cd9eae972b8d2bc50c14801896f"
+    },
+    {
+      "path": "results/checker2_iv.txt",
+      "sha256": "19664af4b65b7e36f2860f83e2c234cc44c7f08847e0a3775c1ebbd81beb7c80"
+    },
+    {
+      "path": "results/newton_log.txt",
+      "sha256": "e05e5f2f7c385edb6eae46155d73f85408f5e2d7379f8205c7a1d3069d9fa41d"
+    }
+  ],
+  "checks": [
+    {
+      "name": "checker 1: Krawczyk, python-flint arb, hand-derived Jacobian, exact preconditioner",
+      "passed": true
+    },
+    {
+      "name": "checker 2: Krawczyk, mpmath.iv, forward-mode automatic differentiation, float64 preconditioner, separately written",
+      "passed": true
+    },
+    {
+      "name": "side conditions: all radii > 0, all pairs of axes non-parallel (arb)",
+      "passed": true
+    }
+  ],
+  "result": "verified: finite assertion established by two independent interval checkers",
+  "residual_risks": [
+    "Both checkers share the gauge choice and the equation set (different code and derivative paths).",
+    "Python, python-flint and mpmath interval correctness are trusted.",
+    "Not peer reviewed."
+  ]
+}

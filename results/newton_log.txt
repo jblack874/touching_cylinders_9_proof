@@ -1,0 +1,5 @@
+extra fixed params (3): [42, 43, 51] cond of kept columns: 4.88e+03
+newton 0 max|F| = 3.7021e-11
+newton 3 max|F| = 1.9982e-82
+newton 4 max|F| = 9.9138e-119
+radii: [1.0, 0.7178, 1.843643, 0.851093, 0.689414, 2.113085, 6.436458, 2.541355, 6.125751]

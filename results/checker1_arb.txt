@@ -1,0 +1,2 @@
+Krawczyk (arb, 600 bits): box radius 2^-330, max |K_i|/rho = 6.117e-20, strictly inside: True
+all radii > 0: True | no two axes parallel: True | radii: ['1.0000000', '0.71780000', '1.8436431', '0.85109337', '0.68941394', '2.1130845', '6.4364575', '2.5413545', '6.1257513']
